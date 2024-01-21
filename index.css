@@ -1,4 +1,38 @@
-html, body {
+*, *::before, *::after {
+    box-sizing: inherit;
+    border: 1px solid darkolivegreen;
+}
+
+html, body, h1, h2, h3, h4, p, ul, li, a {
     margin: 0;
     padding: 0;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+body {
+    scrollbar-gutter: stable;
+}
+
+form > *,
+button {
+    font-family: inherit;
+}
+
+button > * {
+    pointer-events: none;
+}
+
+button:hover {
+    transform: scale(1.04);
+}
+
+button:active {
+    transform: scale(1.0);
+}
+
+button:disabled {
+    opacity: 0.5;
 }
