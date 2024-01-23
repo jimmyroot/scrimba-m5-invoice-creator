@@ -6,11 +6,13 @@
     --primary: #3da9fc;
     --secondary: #90b4ce;
     --accent: #ef4565;
+    --stroke: 3px solid #094067;
+    --br: 10px;
 }
 
 *, *::before, *::after {
     box-sizing: inherit;
-    border: 1px solid darkolivegreen;
+    /* border: 1px solid darkolivegreen; */
 }
 
 html, body, h1, h2, h3, h4, p, ul, li, a {
@@ -32,6 +34,7 @@ body {
 form > *,
 button {
     font-family: inherit;
+    border: none;
 }
 
 button > * {
@@ -90,7 +93,7 @@ h1, h2 {
 }
 
 .main {
-    padding: 0 25px;
+    padding: 0 25px 25px 25px;
 }
 
 .div-invoice-header {
@@ -112,7 +115,8 @@ h1, h2 {
 }
 
 .div-invoice-footer {
-    border-top: 2px solid var(--h);
+    border-top: 3px solid var(--h);
+    padding-top: 15px;
 }
 
 .frm-task-input {
@@ -122,7 +126,15 @@ h1, h2 {
 }
 
 .ipt-task-name {
+    font-size: 20px;
+    /* font-weight: 300; */
     flex-grow: 1;
+    border-left: var(--stroke);
+    border-top: var(--stroke);
+    border-bottom: var(--stroke);
+    border-top-left-radius: var(--br);
+    border-bottom-left-radius: var(--br);
+    padding-left: 15px;
 }
 
 .warning {
@@ -135,7 +147,7 @@ h1, h2 {
     display:flex;
     flex-direction: column;
     gap: 15px;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
 }
 
 .li-invoice-task {
@@ -144,8 +156,61 @@ h1, h2 {
 }
 
 /* Button styles */
+.btn-add-task,
+.sel-task-price,
+.ipt-task-name {
+    color: var(--h);
+}
+
+.btn-add-task,
+.sel-task-price {
+    flex-grow: 0.1;
+}
+
+.btn-add-task {
+    background-color: var(--primary);
+    border-right: var(--stroke);
+    border-top: var(--stroke);
+    border-bottom: var(--stroke);
+    border-top-right-radius: var(--br);
+    border-bottom-right-radius: var(--br);
+}
+
+.sel-task-price {
+    background-image: url('./assets/arrow.png');
+    background-repeat: no-repeat;
+    background-size: 15%;
+    background-position: 88% 50%;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    font-size: 20px;
+    /* font-weight: 300; */
+    border-top: var(--stroke);
+    border-bottom: var(--stroke);
+    border-left: 1px solid var(--h);
+    padding-left: 16px;
+    padding-right: 20px;
+    
+}
+
 .btn-remove-task {
-    line-height: 0;
+    font-size: 9px;
+    letter-spacing: 1.2;
+    font-weight: 700;
+    align-self: center;
+}
+
+.btn-send-invoice {
+    background-color: var(--bg);
+    color: var(--h);
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: var(--br);
+    padding: 12px 0;
 }
 
 /* p styles */

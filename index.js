@@ -107,7 +107,7 @@ const renderTasks = tasks => {
         return `
             <li class="li-invoice-task">
                 <p>${name}</p>
-                <button class="btn-remove-task" data-type="taskDelete" data-key="${key}">Remove</button>
+                <button class="btn-remove-task" data-type="taskDelete" data-key="${key}">REMOVE</button>
                 <p class="p-task-price">£${price}</p>
             </li>
         `
