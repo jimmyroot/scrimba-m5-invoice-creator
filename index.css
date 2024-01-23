@@ -1,3 +1,13 @@
+:root {
+    --bg: #d8eefe;
+    --main-bg: #fffffe;
+    --h: #094067;
+    --p: #5f6c7b;
+    --primary: #3da9fc;
+    --secondary: #90b4ce;
+    --accent: #ef4565;
+}
+
 *, *::before, *::after {
     box-sizing: inherit;
     border: 1px solid darkolivegreen;
@@ -13,6 +23,9 @@ html {
 }
 
 body {
+    background-color: var(--bg);
+    font-family: 'Noto Sans', sans-serif;
+    color: var(--p);
     scrollbar-gutter: stable;
 }
 
@@ -35,4 +48,111 @@ button:active {
 
 button:disabled {
     opacity: 0.5;
+}
+
+label {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
+/* Typography */
+
+h1, h2 {
+    color: var(--h);
+}
+
+.h2-invoice {
+    font-size: 12px;
+}
+
+/* Containers & wrappers */
+.div-container {
+    background-color: var(--main-bg);
+    width: 550px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 50px auto;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 30px;
+}
+
+.main {
+    padding: 0 25px;
+}
+
+.div-invoice-header {
+    margin-top: 25px;
+}
+
+.div-invoice-header,
+.div-invoice-footer,
+.div-invoice-footer div,
+.sec-invoice {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.div-invoice-footer,
+.sec-invoice {
+    flex-direction: column;
+}
+
+.div-invoice-footer {
+    border-top: 2px solid var(--h);
+}
+
+.frm-task-input {
+    display: flex;
+    justify-content: center;
+    height: 50px;
+}
+
+.ipt-task-name {
+    flex-grow: 1;
+}
+
+.warning {
+    box-shadow: 0 0 1px 1px var(--warning);
+}
+
+/* List styles */
+.ul-invoice-tasks {
+    list-style-type: none;
+    display:flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.li-invoice-task {
+    display: flex;
+    gap: 15px;
+}
+
+/* Button styles */
+.btn-remove-task {
+    line-height: 0;
+}
+
+/* p styles */
+.p-task-price {
+    margin-left: auto;
+}
+
+.p-invoice-footer-total {
+    margin-left: auto;
 }

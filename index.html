@@ -1,9 +1,81 @@
 <html>
     <head>
+        <!-- Main styles + icons -->
         <link rel="stylesheet" href="index.css">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel="stylesheet">
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"> -->
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans:wght@300;400;700&display=swap" rel="stylesheet">
     </head>
     <body>
-        
+        <div class="div-container">
+            <!-- Main app -->
+            <header class="header" id="header">
+                <h1 class="h1-title">Invoice creator</h1>
+                <p class="p-tagline">Thanks for choosing Demo Corp Ltd.</p>
+            </header>
+            <main class="main" id="main">
+                <section class="sec-input" id="sec-input">
+                    <form class="frm-task-input" id="frm-task-input">
+                        <label for="ipt-task-name">Enter the task name</label>
+                        <input type="text" class="ipt-task-name" id="ipt-task-name" name="name" placeholder="Wash windows">
+
+                        <label for="sel-task-price" >Select a price for the task</label>
+                        <select class="sel-task-price" id="sel-task-price" name="price">
+                            <option value="10">£10</option>
+                            <option value="20">£20</option>
+                            <option value="30">£30</option>
+                            <option value="40">£40</option>
+                            <option value="50">£50</option>
+                        </select>
+
+                        <label for="btn-sub">Add the task to the invoice</label>
+                        <button type="submit" class="btn-sub" id="btn-sub" value="submit">
+                            <i class='bx bx-plus bx-sm'></i>
+                        </button>
+                    </form>
+                </section>
+                <section class="sec-invoice" id="sec-invoice">
+                    <div class="div-invoice-header">
+                        <h2 class="h2-invoice">TASK</h2>
+                        <h2 class="h2-invoice">TOTAL</h2>
+                    </div>
+                    <ul class="ul-invoice-tasks" id="ul-invoice-tasks">
+                        <!-- Tasks will render here -->
+                    </ul>
+                    <div class="div-invoice-footer" id="div-invoice-footer">
+                        <div>
+                            <h2 class="h2-invoice">NOTES</h2>
+                            <h2 class="h2-invoice">TOTAL AMOUNT</h2>
+                        </div>
+                        <p class="p-invoice-footer-total" id="p-invoice-footer-total"></p>
+                        <button class="btn-send-invoice">
+                            <i class='bx bxs-envelope bx-sm'></i>
+                            Send Invoice
+                        </button>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Modal invoice history -->
+            <dialog class="modal" id="modal-invoice-history">
+                <section class="modal-inner" id="modal-invoice-history-inner">
+                <header class="modal-header">Invoice History</header>
+                    <!-- Invoice history will render here -->
+                </section>
+            </dialog>
+
+            <!-- Modal single invoice view -->
+            <dialog class="modal" id="modal-single-invoice-view">
+                <section class="modal-inner" id="modal-single-invoice-view">
+                    <header class="modal-header">Invoice</header>
+                    <!-- Single invoice will render here -->
+                </section>
+            </dialog>
+        </div>
+
         <script src="index.js" type="module"></script>
     </body>
 </html>
