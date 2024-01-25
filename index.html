@@ -20,7 +20,7 @@
                 <section class="sec-input" id="sec-input">
                     <form class="frm-task-input" id="frm-task-input">
                         <label for="ipt-task-name">Enter the task name</label>
-                        <input type="text" class="ipt-task-name" id="ipt-task-name" name="name" placeholder="Wash windows">
+                        <input type="text" class="ipt-task-name" id="ipt-task-name" name="name" placeholder="e.g. Mowed lawn">
 
                         <label for="sel-task-price" >Select a price for the task</label>
                         <select class="sel-task-price" id="sel-task-price" name="price">
@@ -55,6 +55,11 @@
                             <i class='bx bxs-envelope bx-sm'></i>
                             Send Invoice
                         </button>
+                        <div class="div-ctl-panel" id="div-ctl-panel">
+                            <!-- <button class="btn-history" id="btn-history" data-type="history">History</button>
+                            <button class="btn-reset" id="btn-reset">Reset Invoice</button>
+                            <button class="btn-dark-mode" id="btn-dark-mode">Dark Mode</button> -->
+                        </div>
                     </div>
                 </section>
             </main>
@@ -62,7 +67,10 @@
             <!-- Modal invoice history -->
             <dialog class="modal" id="modal-invoice-history">
                 <section class="modal-inner" id="modal-invoice-history-inner">
-                <header class="modal-header">Invoice History</header>
+                    <header class="modal-header">Invoice History</header>
+                    <footer class="modal-footer">
+                        <button class="btn-modal-main" data-type="close">Close</button>
+                    </footer>
                     <!-- Invoice history will render here -->
                 </section>
             </dialog>
@@ -72,6 +80,9 @@
                 <section class="modal-inner" id="modal-single-invoice-view">
                     <header class="modal-header">Invoice</header>
                     <!-- Single invoice will render here -->
+                    <footer class="modal-footer">
+                        <button class="btn-modal-main" data-type="close"></button>
+                    </footer>
                 </section>
             </dialog>
         </div>
