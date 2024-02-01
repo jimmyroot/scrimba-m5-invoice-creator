@@ -24,6 +24,7 @@
 
                         <label for="sel-task-price" >Select a price for the task</label>
                         <select class="sel-task-price" id="sel-task-price" name="price">
+                            <option value="">£0</option>
                             <option value="10">£10</option>
                             <option value="20">£20</option>
                             <option value="30">£30</option>
@@ -46,21 +47,35 @@
                         <!-- Tasks will render here -->
                     </ul>
                     <div class="div-invoice-footer" id="div-invoice-footer">
-                        <div>
+                        <div class="div-footer-headings">
                             <h2 class="h2-invoice">NOTES</h2>
                             <h2 class="h2-invoice">TOTAL AMOUNT</h2>
                         </div>
                         <p class="p-invoice-footer-total" id="p-invoice-footer-total"></p>
-                        <button class="btn-send-invoice">
+                        <button class="btn-send-invoice" id="btn-send-invoice">
                             <i class='bx bxs-envelope bx-sm'></i>
                             Send Invoice
                         </button>
                         <div class="div-ctl-panel" id="div-ctl-panel">
-                            <!-- <button class="btn-history" id="btn-history" data-type="history">History</button>
+                            
+                            <button class="btn-history" id="btn-history" data-type="history">History</button>
+                        
                             <button class="btn-reset" id="btn-reset">Reset Invoice</button>
-                            <button class="btn-dark-mode" id="btn-dark-mode">Dark Mode</button> -->
+                        
+                            <div class="toggle">
+                                <div class="toggle-description">
+                                    <i class='bx bxs-brightness-half bx-sm'></i>
+                                </div>
+                                <div class="toggle-wrap">
+                                    <label for="toggle-dark-mode">
+                                        <input type="checkbox" id="toggle-dark-mode" class="toggle-input"></input>
+                                        <div class="toggle-switch"></div>
+                                        <div class="toggle-bg"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        
                         </div>
-                    </div>
                 </section>
             </main>
 
@@ -68,10 +83,11 @@
             <dialog class="modal" id="modal-invoice-history">
                 <section class="modal-inner" id="modal-invoice-history-inner">
                     <header class="modal-header">Invoice History</header>
+                    <ul class="ul-invoice-history" id="ul-invoice-history"></ul>
+                    <!-- Invoice history will render here -->
                     <footer class="modal-footer">
                         <button class="btn-modal-main" data-type="close">Close</button>
                     </footer>
-                    <!-- Invoice history will render here -->
                 </section>
             </dialog>
 
@@ -80,6 +96,17 @@
                 <section class="modal-inner" id="modal-single-invoice-view">
                     <header class="modal-header">Invoice</header>
                     <!-- Single invoice will render here -->
+                    <footer class="modal-footer">
+                        <button class="btn-modal-main" data-type="close"></button>
+                    </footer>
+                </section>
+            </dialog>
+
+            <!-- Modal confirm invoice sent -->
+            <dialog class="modal" id="modal-single-invoice-view">
+                <section class="modal-inner" id="modal-single-invoice-view">
+                    <header class="modal-header">Sent!</header>
+                    <p>Your invoice is on it's way!</p>>
                     <footer class="modal-footer">
                         <button class="btn-modal-main" data-type="close"></button>
                     </footer>
