@@ -1,3 +1,5 @@
+
+<!DOCTYPE html>
 <html>
     <head>
         <!-- Main styles + icons -->
@@ -7,12 +9,10 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"> -->
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans:wght@300;400;700&display=swap" rel="stylesheet">
     </head>
     <body>
         <div class="div-container" id="div-container">
-            <!-- Main app -->
             <header class="header" id="header">
                 <h1 class="h1-title">Invoice creator</h1>
                 <p class="p-tagline">Thanks for choosing Jimmy Corp Ltd.</p>
@@ -22,7 +22,6 @@
                     <form class="frm-task-input" id="frm-task-input" autocomplete="off">
                         <label for="ipt-task-name">Enter the task name</label>
                         <input type="text" class="ipt-task-name" id="ipt-task-name" name="name" placeholder="e.g. Mowed lawn">
-
                         <label for="sel-task-price" >Select a price for the task</label>
                         <select class="sel-task-price" id="sel-task-price" name="price">
                             <option value="">£0</option>
@@ -32,7 +31,6 @@
                             <option value="40">£40</option>
                             <option value="50">£50</option>
                         </select>
-
                         <label for="btn-sub">Add the task to the invoice</label>
                         <button type="submit" class="btn-add-task" id="btn-add-task" value="submit">
                             <i class='bx bx-plus bx-sm'></i>
@@ -45,7 +43,7 @@
                         <h2 class="h2-invoice">COST</h2>
                     </div>
                     <ul class="ul-invoice-tasks" id="ul-invoice-tasks">
-                        <!-- Tasks will render here -->
+                        <!-- Live tasks will render here -->
                     </ul>
                     <div class="div-invoice-footer" id="div-invoice-footer">
                         <div class="div-footer">
@@ -56,17 +54,13 @@
                             <p class="p-notes">We accept Bank Transfer or PayPal</p>
                             <p class="p-invoice-footer-total" id="p-invoice-footer-total"></p>
                         </div>
-                        
                         <button class="btn-send-invoice" id="btn-send-invoice">
                             <i class='bx bxs-envelope bx-sm'></i>
                             Send Invoice
                         </button>
                         <div class="div-ctl-panel" id="div-ctl-panel">
-                            
                             <button class="btn-history" id="btn-history" data-type="history">History</button>
-                        
                             <button class="btn-reset" id="btn-reset" data-type="reset">Reset Invoice</button>
-                        
                             <div class="toggle">
                                 <div class="toggle-description">
                                     <i class='bx bxs-brightness-half bx-sm'></i>
@@ -80,7 +74,6 @@
                                     </label>
                                 </div>
                             </div>
-                        
                         </div>
                 </section>
             </main>
@@ -101,7 +94,7 @@
                 </section>
             </dialog>
 
-            <!-- Modal single invoice view -->
+            <!-- Modal for single invoice view -->
             <dialog class="modal" id="modal-single-invoice-view">
                 <section class="modal-inner" id="modal-single-invoice-view">
                     <header class="hdr-modal">
@@ -112,7 +105,7 @@
                     </header>
                     <div class="div-modal-divider"></div>
                     <section class="sec-invoice sec-invoice-modal" id="sec-modal-invoice">
-
+                        <!-- Single invoice will render here -->
                     </section>
                     <footer class="ftr-modal">
                         <button class="btn-modal-close" data-type="close">Close</button>
@@ -129,19 +122,7 @@
                     </footer>
                 </section>
             </dialog>
-
-            <!-- Modal duplicate task -->
-            <!-- Modal confirm invoice sent -->
-            <dialog class="modal modal-confirm" id="modal-dup">
-                <section class="modal-inner" id="modal-single-invoice-view">
-                    <header class="hdr-modal hdr-modal-confirm" id="hdr-modal-confirm"></header>
-                    <footer class="ftr-modal">
-                        <button class="btn-modal-close" id="btn-modal-confirm-close" data-type="close">Back</button>
-                    </footer>
-                </section>
-            </dialog>
         </div>
-
         <script src="index.js" type="module"></script>
     </body>
 </html>
