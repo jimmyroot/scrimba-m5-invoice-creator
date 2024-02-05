@@ -10,15 +10,15 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans:wght@300;400;700&display=swap" rel="stylesheet">
     </head>
     <body>
-        <div class="div-container">
+        <div class="div-container" id="div-container">
             <!-- Main app -->
             <header class="header" id="header">
                 <h1 class="h1-title">Invoice creator</h1>
-                <p class="p-tagline">Thanks for choosing Demo Corp Ltd.</p>
+                <p class="p-tagline">Thanks for choosing Jimmy Corp Ltd.</p>
             </header>
             <main class="main" id="main">
                 <section class="sec-input" id="sec-input">
-                    <form class="frm-task-input" id="frm-task-input">
+                    <form class="frm-task-input" id="frm-task-input" autocomplete="off">
                         <label for="ipt-task-name">Enter the task name</label>
                         <input type="text" class="ipt-task-name" id="ipt-task-name" name="name" placeholder="e.g. Mowed lawn">
 
@@ -41,17 +41,21 @@
                 <section class="sec-invoice" id="sec-invoice">
                     <div class="div-invoice-header">
                         <h2 class="h2-invoice">TASK</h2>
-                        <h2 class="h2-invoice">TOTAL</h2>
+                        <h2 class="h2-invoice">COST</h2>
                     </div>
                     <ul class="ul-invoice-tasks" id="ul-invoice-tasks">
                         <!-- Tasks will render here -->
                     </ul>
                     <div class="div-invoice-footer" id="div-invoice-footer">
-                        <div class="div-footer-headings">
+                        <div class="div-footer">
                             <h2 class="h2-invoice">NOTES</h2>
                             <h2 class="h2-invoice">TOTAL AMOUNT</h2>
                         </div>
-                        <p class="p-invoice-footer-total" id="p-invoice-footer-total"></p>
+                        <div class="div-footer">
+                            <p class="p-notes">We accept Bank Transfer or PayPal</p>
+                            <p class="p-invoice-footer-total" id="p-invoice-footer-total"></p>
+                        </div>
+                        
                         <button class="btn-send-invoice" id="btn-send-invoice">
                             <i class='bx bxs-envelope bx-sm'></i>
                             Send Invoice
@@ -60,7 +64,7 @@
                             
                             <button class="btn-history" id="btn-history" data-type="history">History</button>
                         
-                            <button class="btn-reset" id="btn-reset">Reset Invoice</button>
+                            <button class="btn-reset" id="btn-reset" data-type="reset">Reset Invoice</button>
                         
                             <div class="toggle">
                                 <div class="toggle-description">
@@ -82,11 +86,15 @@
             <!-- Modal invoice history -->
             <dialog class="modal" id="modal-invoice-history">
                 <section class="modal-inner" id="modal-invoice-history-inner">
-                    <header class="modal-header">Invoice History</header>
-                    <ul class="ul-invoice-history" id="ul-invoice-history"></ul>
-                    <!-- Invoice history will render here -->
-                    <footer class="modal-footer">
-                        <button class="btn-modal-main" data-type="close">Close</button>
+                    <header class="hdr-modal">
+                        <h2 class="h2-modal">Invoice History</h2>
+                    </header>
+                    <div class="div-modal-divider"></div>
+                    <ul class="ul-modal overflow-thin-scrollbar" id="ul-invoice-history">
+                        <!-- Invoice history will render here -->
+                    </ul>
+                    <footer class="ftr-modal">
+                        <button class="btn-modal-close" data-type="close">Close</button>
                     </footer>
                 </section>
             </dialog>
@@ -94,21 +102,39 @@
             <!-- Modal single invoice view -->
             <dialog class="modal" id="modal-single-invoice-view">
                 <section class="modal-inner" id="modal-single-invoice-view">
-                    <header class="modal-header">Invoice</header>
-                    <!-- Single invoice will render here -->
-                    <footer class="modal-footer">
-                        <button class="btn-modal-main" data-type="close"></button>
+                    <header class="hdr-modal">
+                        <h2 class="h2-modal">Invoice</h2>
+                        <button class="btn-modal-back" data-type="back">
+                            <i class='bx bxs-chevron-left-circle bx-lg' ></i>
+                        </button>
+                    </header>
+                    <div class="div-modal-divider"></div>
+                    <section class="sec-invoice sec-invoice-modal" id="sec-modal-invoice">
+
+                    </section>
+                    <footer class="ftr-modal">
+                        <button class="btn-modal-close" data-type="close">Close</button>
                     </footer>
                 </section>
             </dialog>
 
             <!-- Modal confirm invoice sent -->
-            <dialog class="modal" id="modal-single-invoice-view">
+            <dialog class="modal modal-confirm" id="modal-confirm">
                 <section class="modal-inner" id="modal-single-invoice-view">
-                    <header class="modal-header">Sent!</header>
-                    <p>Your invoice is on it's way!</p>>
-                    <footer class="modal-footer">
-                        <button class="btn-modal-main" data-type="close"></button>
+                    <header class="hdr-modal hdr-modal-confirm" id="hdr-modal-confirm"></header>
+                    <footer class="ftr-modal">
+                        <button class="btn-modal-close" id="btn-modal-confirm-close" data-type="close">Back</button>
+                    </footer>
+                </section>
+            </dialog>
+
+            <!-- Modal duplicate task -->
+            <!-- Modal confirm invoice sent -->
+            <dialog class="modal modal-confirm" id="modal-dup">
+                <section class="modal-inner" id="modal-single-invoice-view">
+                    <header class="hdr-modal hdr-modal-confirm" id="hdr-modal-confirm"></header>
+                    <footer class="ftr-modal">
+                        <button class="btn-modal-close" id="btn-modal-confirm-close" data-type="close">Back</button>
                     </footer>
                 </section>
             </dialog>
