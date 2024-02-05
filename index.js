@@ -1,5 +1,3 @@
-// ajo label hints for toggle
-
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js'
 
 import { 
@@ -168,7 +166,9 @@ modalConfirm.addEventListener('cancel', e => {
 })
 
 toggleDarkMode.addEventListener('change', () => {
-    currentTheme === 'light' ? setTheme('dark') : setTheme('light')
+    setTimeout(() => {
+        currentTheme === 'light' ? setTheme('dark') : setTheme('light')
+    }, 200)
 })
 
 // -------------------------- //

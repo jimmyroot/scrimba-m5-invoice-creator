@@ -137,7 +137,8 @@ const renderSingleInvoice = invoiceId => {
     }
 }
 
-// Show/hide modals and do any set-up, pre-rendering or clean-up afterwards
+// Show/hide modals and do any set-up, pre-rendering or clean-up afterwards. If showing
+// modal-invoice-single-view, must supply the invoice key
 const showModal = (modal, doShow, key) => {
 
     // If we need to do anything before modal shows, do it below

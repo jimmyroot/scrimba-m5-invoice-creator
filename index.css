@@ -42,7 +42,8 @@ dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.15);
 }
 
-.frm-task-input label {
+.frm-task-input label,
+.toggle-wrap span {
     position: absolute;
     clip: rect(1px, 1px, 1px, 1px);
     padding: 0;

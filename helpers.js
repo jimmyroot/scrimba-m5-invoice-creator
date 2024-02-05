@@ -1,4 +1,7 @@
-import { remove, set, get } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js'
+import { 
+    remove,
+    set,
+    get } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js'
 
 import { 
     tasks,

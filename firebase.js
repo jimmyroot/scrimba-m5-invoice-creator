@@ -2,7 +2,9 @@ import { ref, remove } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-
 import { db } from './index.js'
 import { renderInvoiceHistory } from './render.js'
 
-export { removeTaskFromDB, removeInvoiceFromDB }
+export { 
+    removeTaskFromDB,
+    removeInvoiceFromDB }
 
 // Delete a task from db
 const removeTaskFromDB = key => {
