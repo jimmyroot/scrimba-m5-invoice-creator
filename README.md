@@ -1,4 +1,4 @@
-# Module 5 — Solo Project — Invoice Creator
+# Scrimba Frontend Dev Path — Module 5 — Solo Project — Invoice Creator
 
 ## A simple invoice creator built with HTML, CSS, JavaScrript, Firebase Realtime DB
 
