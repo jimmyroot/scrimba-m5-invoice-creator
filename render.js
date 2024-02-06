@@ -1,38 +1,37 @@
-import { get, ref } from  'https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js'
+import { get, ref } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js'
 
 import { 
-    liveTasks,
+    appState, 
+    db, 
+    invoices, 
     ulTasks, 
     btnSendInvoice, 
     btnReset, 
-    resetLocalTasks, 
-    incrementTotal,
-    setHeight,
-    modalHistory,
-    modalSingleInvoiceView,
-    db,
-    invoices } from "./index.js"
-
+    modalHistory, 
+    modalSingleInvoiceView } from './index.js'
+    
 import { 
-    enableButtons, 
-    renderinvoiceTotal,
-    showSpinner,
-    resetInvoice } from "./helpers.js"
+    showSpinner, 
+    resetInvoice, 
+    setModalHeight,
+    enableButtons } from './helpers.js'
 
 export { 
     renderTasks, 
+    renderInvoiceTotal, 
     renderInvoiceHistory, 
-    showModal, 
-    renderSingleInvoice }
+    renderSingleInvoice, 
+    showModal }
 
-// Render tasks in the live invoice view
+// Render the live tasks list on the main app page
 const renderTasks = tasks => {
-    resetLocalTasks()
-
+    appState.liveTasks = []
+    appState.invoiceTotal = 0
+    
     const html = Object.keys(tasks).map(key => {
         const { name, price } = tasks[key]
-        liveTasks.push([name, price]) // Keep local tasklist in sync with DB
-        incrementTotal(price)
+        appState.liveTasks.push([name, price]) // Keep local tasklist in sync with DB
+        appState.invoiceTotal += price
         return `
             <li class="li-invoice-task">
                 <p>${name}</p>
@@ -48,11 +47,17 @@ const renderTasks = tasks => {
     ulTasks.innerHTML = html
    
     enableButtons([btnSendInvoice, btnReset], true)
-    renderinvoiceTotal()
+    renderInvoiceTotal()
 }
 
-// Using 'get' to perform a single read of the invoices data, preventing it from rendering in the background
-// if we use 'onValue'. Called when modal displayed, or when an invoices is removed from the db
+const renderInvoiceTotal = () => {
+    document.getElementById('p-invoice-footer-total').innerHTML = `<span class="spn-primary">£</span> ${appState.invoiceTotal}`
+}
+
+// Using 'get' to perform a single read of the invoices data, 
+// preventing it from rendering in the background if we use 
+// 'onValue'. Called when modal displayed, or when an invoices
+// is removed from the db
 const renderInvoiceHistory = () => {
     const ulInvoiceHistory = document.getElementById('ul-invoice-history')
     showSpinner(modalHistory, true)
@@ -91,7 +96,7 @@ const renderInvoiceHistory = () => {
     })
 }
 
-// Renders one invoice into the single invoice view modal
+// Render one invoice into the Single Invoice View modal 
 const renderSingleInvoice = invoiceId => {
     if (invoiceId) {
         showSpinner(modalSingleInvoiceView, true)
@@ -138,31 +143,25 @@ const renderSingleInvoice = invoiceId => {
     }
 }
 
-// Show/hide modals and do any set-up, pre-rendering or clean-up afterwards. If showing
-// modal-invoice-single-view, must supply the invoice key
 const showModal = (modal, doShow, key) => {
-
-    // If we need to do anything before modal shows, do it below
+    // These functions will be called before the modal displays
     const getReadyToShow = {
         'modal-invoice-history': () => {
             renderInvoiceHistory()
-            // Adjust height of modal to keep things neat ^_^
-            const h = document.getElementById('div-container').offsetHeight - 40
-            setHeight(modalHistory, h)
+            setModalHeight(modal)
         },
         'modal-single-invoice-view': () => {
-            const h = document.getElementById('div-container').offsetHeight - 40
-            setHeight(modalSingleInvoiceView, h)
             renderSingleInvoice(key)
+            setModalHeight(modal)
         },
         'modal-confirm': () => {
             const h = document.getElementById('hdr-modal-confirm')
             const btn = document.getElementById('btn-modal-confirm-close')
             h.textContent = ''
             enableButtons([btn], false)
-            h.classList.add('spinner')
+            showSpinner(h, true)
             setTimeout(() => {
-                h.classList.remove('spinner')
+                showSpinner(h, false)
                 h.textContent = 'Invoice sent 💸'
                 enableButtons([btn], true)
             }, 2000)
@@ -170,14 +169,14 @@ const showModal = (modal, doShow, key) => {
 
     }
     
-    // If we need to clean anything up after we're done with a modal, we can do that here
+    // These functions can be called when a modal is closed
     const cleanUp = {
         'modal-confirm': () => {
             resetInvoice()
         }
     }
     
-    // Show the modal and run the above set-up/clean-up code if specified
+    // are we showing (doShow = true) or not?
     if (doShow) {
         // If we specified any setup code for the modal, run it now
         if (Object.keys(getReadyToShow).includes(modal.id)) getReadyToShow[modal.id]()

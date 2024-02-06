@@ -1,56 +1,49 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js'
 
 import { 
-    getDatabase,
+    getDatabase, 
     ref, 
     onValue } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js'
 
 import { 
-    removeInvoiceFromDB,
-    removeTaskFromDB } from './firebase.js'
-        
+    handleFormSubmit, 
+    handleSendInvoice } from './handlers.js'
+    
 import { 
-    renderTasks,
+    renderTasks, 
+    renderInvoiceHistory, 
     showModal } from './render.js'
-            
-import {
+    
+import { 
+    removeTaskFromDB, 
+    removeInvoiceFromDB } from './firebase.js'
+    
+import { 
     noTasksYet, 
-    resetInvoice, 
-    isFormComplete,
-    enableButtons,
-    setTheme,
+    resetInvoice,
+    isFormComplete, 
+    enableButtons, 
+    setTheme, 
     initTheme } from './helpers.js'
 
-import { 
-    handleFormSubmit,
-    handleSendInvoice } from './handlers.js'
-
 export { 
-    app,
-    db,
-    tasks,
-    invoices,
-    themePrefs,
-    formTaskInput,
-    ulTasks,
-    btnSendInvoice,
+    appState, 
+    db, 
+    tasks, 
+    invoices, 
+    themePrefs, 
+    formTaskInput, 
+    ulTasks, 
+    btnSendInvoice, 
     btnReset,
-    modalHistory,
-    modalSingleInvoiceView,
-    modalConfirm,
     toggleDarkMode, 
-    invoiceTotal, 
-    liveTasks, 
-    currentTheme,
-    setCurrentTheme,
-    resetLocalTasks,
-    incrementTotal,
-    setHeight
-}
-    
+    modalConfirm, 
+    modalHistory, 
+    modalSingleInvoiceView }
+
 // Init firebase
 const cfg = {
-    databaseURL: 'https://invoice-creator-a9ba5-default-rtdb.europe-west1.firebasedatabase.app/'
+    databaseURL: 'https://invoice-creator-a9ba5-default-rtdb.europe-west1.firebasedatabase.app'
 }
 
 const app = initializeApp(cfg)
@@ -69,11 +62,20 @@ const modalSingleInvoiceView = document.getElementById('modal-single-invoice-vie
 const modalConfirm = document.getElementById('modal-confirm')
 const toggleDarkMode = document.getElementById('toggle-dark-mode')
 
-// We'll maintain a local array of current tasks, so we can check if tasks already exists.
-// This means we don't need to read from the db every time we add a new task
-let liveTasks = []
-let invoiceTotal = 0
-let currentTheme = null
+// I discovered using an object to import/export is better, as we can easily manipulate the 
+// attributes without separate getter functions. 
+
+// This object contains a liveTasks array (so we don't have to read from the db each time
+// to check for duplicates), the running total of the live invoice and the current theme preference
+// let liveTasks = []
+// let invoiceTotal = 0
+// let currentTheme = null
+
+let appState = {
+    liveTasks: [],
+    invoiceTotal: 0,
+    currentTheme: null,
+}
 
 // ----------------------- //
 // --- EVENT LISTENERS --- //
@@ -82,6 +84,7 @@ let currentTheme = null
 formTaskInput.addEventListener('submit', e => {
     e.preventDefault()
     const form = e.target
+    // Check if task input field contains something, then submit the form
     if (isFormComplete(form)) handleFormSubmit(form)
 })
 
@@ -160,62 +163,41 @@ modalConfirm.addEventListener('click', e => {
     if (type) handleClick[type]()
 })
 
-// Stop confirm dialog from closing on cancel, as there is code we need to run when the user
-// clicks the 'Back' btn. This code won't run if the user 'escapes' the dialog.
+
+// Stop confirm dialog from closing if user presses Esc, as there is code we need
+// to run when the user clicks the 'Back' btn. This code won't run if the user 
+// presses Esc to close it
 modalConfirm.addEventListener('cancel', e => {
     e.preventDefault()
 })
 
+// The delay here is so that the theme change syncs up with the toggle switch
+// animation
 toggleDarkMode.addEventListener('change', () => {
-    setTimeout(() => {
-        currentTheme === 'light' ? setTheme('dark') : setTheme('light')
+    setTimeout( () => {
+        appState.currentTheme === 'light' ? setTheme('dark') : setTheme('light')
     }, 200)
-})
-
-
-
-// ---------------------—---------------- //
-// --- SETTERS FOR EXPORTED VARIABLES --- //
-// -------------------------------------- //
-
-const setCurrentTheme = theme => {
-    currentTheme = theme
-}
-
-const incrementTotal = qty => {
-    invoiceTotal += qty
-}
-
-const resetLocalTasks = () => {
-    liveTasks = []
-    invoiceTotal = 0
-}
-
-const setHeight = (el, height) => {
-    console.log(el)
     
-    el.style = `height: ${height}px !important;`
-}
+})
 
 // -------------------------- //
 // --- FIREBASE LISTENERS --- //
-// --------------------—----- //
+// -------------------------- //
 
-// App is mostly driven by the following listeners
-
+// Render the task list 
 onValue(tasks, snapshot => {
     snapshot.exists() ? renderTasks(snapshot.val()) : noTasksYet()
 })
 
-// Toggle dark mode when themePref value changes
+// Toggle dark mode when darkmode value changed
 onValue(themePrefs, snapshot => {
     if (snapshot.exists()) { 
-        currentTheme = snapshot.val() 
-        document.documentElement.className = currentTheme
+        appState.currentTheme = snapshot.val() 
+        document.documentElement.className = appState.currentTheme
     }
 })
 
-// Load the theme when the app starts
+// Only run this once, when the app first loads
 onValue(themePrefs, snapshot => {
     if (snapshot.exists()) initTheme()
 }, {

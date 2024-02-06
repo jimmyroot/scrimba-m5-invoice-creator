@@ -15,4 +15,3 @@ My mains takeaways from this project were
 - Code modularisation
 - Performing single reads from a firebase backend with 'get'
 - Lots of new CSS tricks mostly around use of modals
-

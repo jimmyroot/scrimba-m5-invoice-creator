@@ -1,55 +1,54 @@
-import { 
-    remove,
-    set,
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js'
+
+import {
+    remove, 
+    set, 
     get } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js'
 
 import { 
-    tasks,
-    themePrefs,
-    formTaskInput,
-    ulTasks,
-    btnSendInvoice,
-    btnReset,
-    toggleDarkMode, 
-    invoiceTotal, 
-    liveTasks, 
-    currentTheme,
-    setCurrentTheme,
-    resetLocalTasks
-} from './index.js'
+    appState,  
+    tasks, 
+    themePrefs, 
+    ulTasks, 
+    btnSendInvoice, 
+    btnReset, 
+    formTaskInput, 
+    toggleDarkMode } from './index.js'
+    
+import { renderInvoiceTotal } from './render.js'
 
 export { 
     noTasksYet, 
     resetInvoice, 
-    showSpinner,
-    renderinvoiceTotal,
-    taskExists,
-    isFormComplete,
-    enableButtons,
-    setTheme,
-    initTheme 
-}
+    showSpinner, 
+    taskExists, 
+    isFormComplete, 
+    enableButtons, 
+    setTheme, 
+    initTheme, 
+    setModalHeight }
 
-// Call this from onValue if there is no snapshot (empty tasklist)
 const noTasksYet = () => {
-    resetLocalTasks()
+    // Make sure everything is empty
+    appState.liveTasks = []
+    appState.invoiceTotal = 0
+    // Render stuff
     ulTasks.innerHTML = `
         <li class="li-invoice-task li-empty">
-            <p>No tasks yet</p>
-            <p class="p-task-price">£ 0</p>
+            <p class="p-empty">No tasks yet</p>
+            <p class="p-empty">£ 0</p>
         </li>
     `
     enableButtons([btnSendInvoice, btnReset], false)
-    renderinvoiceTotal()
+    renderInvoiceTotal()
 }
 
 const resetInvoice = () => {
-    resetLocalTasks()
-    renderinvoiceTotal() 
-
+    // Reset all the stuff
+    appState.liveTasks = []
+    appState.invoiceTotal = []
     // Remove current tasks from firebase, will trigger re-render
     remove(tasks)
-
     // Reset form and remove warning class if present
     formTaskInput.reset()
     const formEls = [...formTaskInput.elements]
@@ -63,18 +62,13 @@ const showSpinner = (el, doShow) => {
     doShow ? el.classList.add('spinner') : el.classList.remove('spinner')
 }
 
-const renderinvoiceTotal = () => {
-    document.getElementById('p-invoice-footer-total').innerHTML = `<span class="spn-primary">£</span> ${invoiceTotal}`
-}
-
 const taskExists = task => {
-    return liveTasks.map(task => task[0]).includes(task.name)
+    return appState.liveTasks.map(task => task[0]).includes(task.name)
 }
 
 const isFormComplete = form => {
     // Create an array of form elements filtered by if they have a value (i.e. are empty)
     const emptyInputs = [...form.elements].filter(element => !Boolean(element.value))
-
     // If there are empty elements, add warning class to them and return false
     if (emptyInputs.length > 0) {
         emptyInputs.forEach(input => input.classList.add('warning'))
@@ -84,26 +78,32 @@ const isFormComplete = form => {
     return true
 }
 
-// Enable or disable all buttons passed in the 'buttons' array
 const enableButtons = (buttons, doEnable) => {
     if (buttons.length > 0) buttons.forEach(button => button.disabled = !doEnable)
 }
 
 const setTheme = theme => {
+    // const themePrefs = ref(db, '/themePrefs/theme')
     set(themePrefs, theme)
 }
 
-// Called when app starts, check if there's a theme preference in firebase and if so, load it
-// If not, create one and recurse to make sure it's valid and theme gets set
 const initTheme = () => {
     get(themePrefs).then(snapshot => {
         if (snapshot.exists()) {
-            setCurrentTheme(snapshot.val())
-            setTheme(currentTheme)
-            currentTheme === 'light' ? toggleDarkMode.checked = false : toggleDarkMode.checked = true
+            const theme = snapshot.val()
+            appState.currentTheme = theme
+            // Make sure the toggle switch has the correct orientation when app loads
+            theme === 'light' ? toggleDarkMode.checked = false : toggleDarkMode.checked = true
         } else {
-            setThemeInDB('light')
+            setTheme('light')
             initTheme()
         }
     })
+}
+
+// Set modal height relative to parent container height, called before showing
+// a modal
+const setModalHeight = (modal) => {
+    const h = document.getElementById('div-container').offsetHeight - 40
+    modal.style = `height: ${h}px !important;`
 }

@@ -1,85 +1,87 @@
 .light {
-    --bg: #F6F1F3;
-    --main-bg: #fffffe;
-    --h: #4D1226;
-    --p: #d3d3d3;
-    --primary: #ff8e3c;
-    --primary-dark: #5D3112;
-    --primary-light: #ffd1b0;
-    --secondary: #f25f4c;
-    --secondary-light: #FFDED9;
-    --accent: #e53170;
-    --accent-dark: #821A3E;
-    /* --toggle-bg: #DDDDDD; */
-    --input-bg: #fffffe;
-    --warning: #f25f4c;
-    --stroke: 3px solid #f25f4c;
-    --br: 10px;
-    --br-small: 5px;
-    --shadow-color: 337deg 7% 60%;
-    --shadow-elevation-high:
-        0px 0.2px 0.2px hsl(var(--shadow-color) / 0.81),
-        0px 0.2px 0.2px -0.6px hsl(var(--shadow-color) / 0.73),
-        0px 0.4px 0.3px -1.1px hsl(var(--shadow-color) / 0.65),
-        0px 1px 0.8px -1.7px hsl(var(--shadow-color) / 0.57),
-        0.1px 2.2px 1.7px -2.2px hsl(var(--shadow-color) / 0.49),
-        0.2px 4.2px 3.2px -2.8px hsl(var(--shadow-color) / 0.41),
-        0.3px 7.2px 5.4px -3.3px hsl(var(--shadow-color) / 0.33),
-        0.5px 11.3px 8.5px -3.9px hsl(var(--shadow-color) / 0.24),
-        0.7px 16.8px 12.6px -4.4px hsl(var(--shadow-color) / 0.16),
-        1px 23.9px 17.9px -5px hsl(var(--shadow-color) / 0.08);
-      --shadow-modal:
-        0px 0.2px 0.2px hsl(var(--shadow-color) / 0.81),
-        0px 0.2px 0.2px -0.6px hsl(var(--shadow-color) / 0.73),
-        0px 0.4px 0.3px -1.1px hsl(var(--shadow-color) / 0.65),
-        0px 1px 0.8px -1.7px hsl(var(--shadow-color) / 0.57),
-        0.1px 2.2px 1.7px -2.2px hsl(var(--shadow-color) / 0.49),
-        0.2px 4.2px 3.2px -2.8px hsl(var(--shadow-color) / 0.41),
-        0.3px 7.2px 5.4px -3.3px hsl(var(--shadow-color) / 0.33),
-        0.5px 11.3px 8.5px -3.9px hsl(var(--shadow-color) / 0.24),
-        0.7px 16.8px 12.6px -4.4px hsl(var(--shadow-color) / 0.16),
-        1px 23.9px 17.9px -5px hsl(var(--shadow-color) / 0.08);
+  --bg: #f5f4f7;
+  --main-bg: #fffffe;
+  --h: #4D1226;
+  --p: #d3d3d3;
+  --primary: #ff8e3c;
+  --primary-dark: #5D3112;
+  --primary-light: #ffd1b0;
+  --secondary: #f25f4c;
+  --secondary-light: #FFDED9;
+  --accent: #e53170;
+  --accent-dark: #821A3E;
+  --outline: 0 0 3px #e5317099;
+  /* --toggle-bg: #DDDDDD; */
+  --input-bg: #fffffe;
+  --warning: #f25f4c;
+  --stroke: 3px solid #f25f4c;
+  --br: 10px;
+  --br-small: 5px;
+  --shadow-color: 337deg 7% 60%;
+  --shadow-elevation-high:
+    0px 0.2px 0.2px hsl(var(--shadow-color) / 0.81),
+    0px 0.2px 0.2px -0.6px hsl(var(--shadow-color) / 0.73),
+    0px 0.4px 0.3px -1.1px hsl(var(--shadow-color) / 0.65),
+    0px 1px 0.8px -1.7px hsl(var(--shadow-color) / 0.57),
+    0.1px 2.2px 1.7px -2.2px hsl(var(--shadow-color) / 0.49),
+    0.2px 4.2px 3.2px -2.8px hsl(var(--shadow-color) / 0.41),
+    0.3px 7.2px 5.4px -3.3px hsl(var(--shadow-color) / 0.33),
+    0.5px 11.3px 8.5px -3.9px hsl(var(--shadow-color) / 0.24),
+    0.7px 16.8px 12.6px -4.4px hsl(var(--shadow-color) / 0.16),
+    1px 23.9px 17.9px -5px hsl(var(--shadow-color) / 0.08);
+  --shadow-modal:
+    0px 0.2px 0.2px hsl(var(--shadow-color) / 0.81),
+    0px 0.2px 0.2px -0.6px hsl(var(--shadow-color) / 0.73),
+    0px 0.4px 0.3px -1.1px hsl(var(--shadow-color) / 0.65),
+    0px 1px 0.8px -1.7px hsl(var(--shadow-color) / 0.57),
+    0.1px 2.2px 1.7px -2.2px hsl(var(--shadow-color) / 0.49),
+    0.2px 4.2px 3.2px -2.8px hsl(var(--shadow-color) / 0.41),
+    0.3px 7.2px 5.4px -3.3px hsl(var(--shadow-color) / 0.33),
+    0.5px 11.3px 8.5px -3.9px hsl(var(--shadow-color) / 0.24),
+    0.7px 16.8px 12.6px -4.4px hsl(var(--shadow-color) / 0.16),
+    1px 23.9px 17.9px -5px hsl(var(--shadow-color) / 0.08);
 }
 
 .dark {
-    --bg: #292929;
-    --main-bg: #121212;
-    --h: #999999;
-    --p: #3d3d3d;
-    --primary: #f29f99;
-    --primary-dark: #fd7151;
-    --primary-light: #a5a5a5;
-    --secondary: #3b3b3b;
-    --secondary-light: #939393;
-    --accent: #f5bdd4;
-    --accent-dark: #eb699c;
-    /* --toggle-bg: #DDDDDD; */
-    --input-bg: #292929;
-    --warning: #f25f4c;
-    --stroke: 3px solid #1e1e1e;
-    --br: 10px;
-    --br-small: 5px;
-    --shadow-color: 0deg 0% 9;
-    --shadow-elevation-high:
-        0px 0.2px 0.2px hsl(var(--shadow-color) / 0.81),
-        0px 0.2px 0.2px -0.6px hsl(var(--shadow-color) / 0.73),
-        0px 0.4px 0.3px -1.1px hsl(var(--shadow-color) / 0.65),
-        0px 1px 0.8px -1.7px hsl(var(--shadow-color) / 0.57),
-        0.1px 2.2px 1.7px -2.2px hsl(var(--shadow-color) / 0.49),
-        0.2px 4.2px 3.2px -2.8px hsl(var(--shadow-color) / 0.41),
-        0.3px 7.2px 5.4px -3.3px hsl(var(--shadow-color) / 0.33),
-        0.5px 11.3px 8.5px -3.9px hsl(var(--shadow-color) / 0.24),
-        0.7px 16.8px 12.6px -4.4px hsl(var(--shadow-color) / 0.16),
-        1px 23.9px 17.9px -5px hsl(var(--shadow-color) / 0.08);
-      --shadow-modal:
-        0px 0.2px 0.2px hsl(var(--shadow-color) / 0.81),
-        0px 0.2px 0.2px -0.6px hsl(var(--shadow-color) / 0.73),
-        0px 0.4px 0.3px -1.1px hsl(var(--shadow-color) / 0.65),
-        0px 1px 0.8px -1.7px hsl(var(--shadow-color) / 0.57),
-        0.1px 2.2px 1.7px -2.2px hsl(var(--shadow-color) / 0.49),
-        0.2px 4.2px 3.2px -2.8px hsl(var(--shadow-color) / 0.41),
-        0.3px 7.2px 5.4px -3.3px hsl(var(--shadow-color) / 0.33),
-        0.5px 11.3px 8.5px -3.9px hsl(var(--shadow-color) / 0.24),
-        0.7px 16.8px 12.6px -4.4px hsl(var(--shadow-color) / 0.16),
-        1px 23.9px 17.9px -5px hsl(var(--shadow-color) / 0.08);
+  --bg: #1c1c1c;
+  --main-bg: #121212;
+  --h: #999999;
+  --p: #3d3d3d;
+  --primary: #f29f99;
+  --primary-dark: #fd7151;
+  --primary-light: #a5a5a5;
+  --secondary: #3b3b3b;
+  --secondary-light: #939393;
+  --accent: #f5bdd4;
+  --accent-dark: #eb699c;
+  --outline: 0 0 6px #dddddd33;
+  /* --toggle-bg: #DDDDDD; */
+  --input-bg: #292929;
+  --warning: #f25f4c;     
+  --stroke: 3px solid #1e1e1e;
+  --br: 10px;
+  --br-small: 5px;
+  --shadow-color: 0deg 0% 9;
+  --shadow-elevation-high:
+    0px 0.2px 0.2px hsl(var(--shadow-color) / 0.81),
+    0px 0.2px 0.2px -0.6px hsl(var(--shadow-color) / 0.73),
+    0px 0.4px 0.3px -1.1px hsl(var(--shadow-color) / 0.65),
+    0px 1px 0.8px -1.7px hsl(var(--shadow-color) / 0.57),
+    0.1px 2.2px 1.7px -2.2px hsl(var(--shadow-color) / 0.49),
+    0.2px 4.2px 3.2px -2.8px hsl(var(--shadow-color) / 0.41),
+    0.3px 7.2px 5.4px -3.3px hsl(var(--shadow-color) / 0.33),
+    0.5px 11.3px 8.5px -3.9px hsl(var(--shadow-color) / 0.24),
+    0.7px 16.8px 12.6px -4.4px hsl(var(--shadow-color) / 0.16),
+    1px 23.9px 17.9px -5px hsl(var(--shadow-color) / 0.08);
+  --shadow-modal:
+    0px 0.2px 0.2px hsl(var(--shadow-color) / 0.81),
+    0px 0.2px 0.2px -0.6px hsl(var(--shadow-color) / 0.73),
+    0px 0.4px 0.3px -1.1px hsl(var(--shadow-color) / 0.65),
+    0px 1px 0.8px -1.7px hsl(var(--shadow-color) / 0.57),
+    0.1px 2.2px 1.7px -2.2px hsl(var(--shadow-color) / 0.49),
+    0.2px 4.2px 3.2px -2.8px hsl(var(--shadow-color) / 0.41),
+    0.3px 7.2px 5.4px -3.3px hsl(var(--shadow-color) / 0.33),
+    0.5px 11.3px 8.5px -3.9px hsl(var(--shadow-color) / 0.24),
+    0.7px 16.8px 12.6px -4.4px hsl(var(--shadow-color) / 0.16),
+    1px 23.9px 17.9px -5px hsl(var(--shadow-color) / 0.08);
 }
