@@ -1,3 +1,7 @@
+// -------------------------------------------------------------------------------- //
+// --- handlers.js — event handlers called mostly from index.js event listeners --- //
+// -------------------------------------------------------------------------------- //
+
 import { push } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js'
 
 import { 
@@ -29,6 +33,7 @@ const handleFormSubmit = form => {
         push(tasks, task)
         formTaskInput.reset()
     } else {
+        // Show warning if duplicate task
         const ipt = document.getElementById('ipt-task-name')
         const btn = document.getElementById('btn-add-task')
         ipt.value = "Duplicate task!"

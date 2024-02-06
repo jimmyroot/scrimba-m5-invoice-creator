@@ -1,3 +1,8 @@
+// ---------------------------------------------------------------------------------- //
+// --- index.js — app initialization, event listeners, DOM elements, FB listeners --- //
+// ---------------------------------------------------------------------------------- //
+
+
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js'
 
 import { 
@@ -62,14 +67,11 @@ const modalSingleInvoiceView = document.getElementById('modal-single-invoice-vie
 const modalConfirm = document.getElementById('modal-confirm')
 const toggleDarkMode = document.getElementById('toggle-dark-mode')
 
-// I discovered using an object to import/export is better, as we can easily manipulate the 
-// attributes without separate getter functions. 
+// I learned that an object import/export is better than let/const, we can manipulate the 
+// attributes without separate getter functions. This object contains a local liveTasks array 
+// (so we don't have to read from the db each time to check for duplicates),
+// the running total of the live invoice and the current theme preference
 
-// This object contains a liveTasks array (so we don't have to read from the db each time
-// to check for duplicates), the running total of the live invoice and the current theme preference
-// let liveTasks = []
-// let invoiceTotal = 0
-// let currentTheme = null
 
 let appState = {
     liveTasks: [],
@@ -81,6 +83,7 @@ let appState = {
 // --- EVENT LISTENERS --- //
 // ----------------------- //
 
+// For submitting new tasks
 formTaskInput.addEventListener('submit', e => {
     e.preventDefault()
     const form = e.target
@@ -88,6 +91,7 @@ formTaskInput.addEventListener('submit', e => {
     if (isFormComplete(form)) handleFormSubmit(form)
 })
 
+// Listen for changes to inputs to remove validation/warning class
 formTaskInput.addEventListener('input', e => {        
     const input = e.target
     if (input.classList.contains('warning')) input.classList.remove('warning')
@@ -109,6 +113,7 @@ btnSendInvoice.addEventListener('click', () => {
     handleSendInvoice()
 })
 
+// For the buttons on the main app, at the bottom
 document.getElementById('div-ctl-panel').addEventListener('click', e => {
     const handleClick = {
         history: () => {

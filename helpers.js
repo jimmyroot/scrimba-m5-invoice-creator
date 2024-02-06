@@ -1,4 +1,6 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js'
+// ----------------------------------------------------------------------------- //
+// --- helpers.js — small helper functions used variously throughout the app --- //
+// ----------------------------------------------------------------------------- //
 
 import {
     remove, 
@@ -87,6 +89,8 @@ const setTheme = theme => {
     set(themePrefs, theme)
 }
 
+// This only gets called once when the app loads, checks for existing theme preference
+// in firebase, loads it if present, else creates it on first run
 const initTheme = () => {
     get(themePrefs).then(snapshot => {
         if (snapshot.exists()) {
@@ -101,8 +105,8 @@ const initTheme = () => {
     })
 }
 
-// Set modal height relative to parent container height, called before showing
-// a modal
+// Set modal height relative to the main div container height, called before showing
+// a modal to keep everything lined up
 const setModalHeight = (modal) => {
     const h = document.getElementById('div-container').offsetHeight - 40
     modal.style = `height: ${h}px !important;`

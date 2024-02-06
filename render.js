@@ -1,3 +1,7 @@
+// -------------------------------------------------------------------------------------- //
+// --- render.js — functions relating to putting things on the screen, html or modals --- //
+// -------------------------------------------------------------------------------------- //
+
 import { get, ref } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js'
 
 import { 
@@ -56,8 +60,8 @@ const renderInvoiceTotal = () => {
 
 // Using 'get' to perform a single read of the invoices data, 
 // preventing it from rendering in the background if we use 
-// 'onValue'. Called when modal displayed, or when an invoices
-// is removed from the db
+// 'onValue'. Called when the history modal is displayed, or
+// when an invoices is removed from the db
 const renderInvoiceHistory = () => {
     const ulInvoiceHistory = document.getElementById('ul-invoice-history')
     showSpinner(modalHistory, true)
@@ -143,6 +147,9 @@ const renderSingleInvoice = invoiceId => {
     }
 }
 
+// Used to show modals and also to run any extra code that we might 
+// want to execute before displaying the modal, i.e. render a single invoice
+// also has ability to run code when we close a modal, if we wish
 const showModal = (modal, doShow, key) => {
     // These functions will be called before the modal displays
     const getReadyToShow = {
