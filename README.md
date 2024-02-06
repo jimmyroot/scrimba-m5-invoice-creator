@@ -15,3 +15,8 @@ My mains takeaways from this project were
 - Code modularisation
 - Performing single reads from a firebase backend with 'get'
 - Lots of new CSS tricks mostly around use of modals
+
+## Other thoughts
+For this project I focussed quite heavily on modularising the code. Unfortunately I wrote
+all the code first and then tried to separate it out, which I think has ended up with 
+a messier project than I would of liked. Still pleased with the overall result, however :-)
