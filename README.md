@@ -1,9 +1,8 @@
-# Module 5 — Solo Project — Invoice Creator
+# Scrimba Frontend Dev Path — Module 5 — Solo Project — Invoice Creator
 
 ## A simple invoice creator built with HTML, CSS, JavaScrript, Firebase Realtime DB
 
 Features include the following...
-
 - Create and send a new invoice
 - Invoice history stored in database
 - Abilty to retrieve/view a single invoice previously saved in the database
