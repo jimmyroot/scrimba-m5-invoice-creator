@@ -44,7 +44,8 @@ export {
     currentTheme,
     setCurrentTheme,
     resetLocalTasks,
-    incrementTotal
+    incrementTotal,
+    setHeight
 }
     
 // Init firebase
@@ -171,22 +172,7 @@ toggleDarkMode.addEventListener('change', () => {
     }, 200)
 })
 
-// -------------------------- //
-// --- FIREBASE LISTENERS --- //
-// --------------------—----- //
 
-// Render the live task list 
-onValue(tasks, snapshot => {
-    snapshot.exists() ? renderTasks(snapshot.val()) : noTasksYet()
-})
-
-// Toggle dark mode when themePref value changes
-onValue(themePrefs, snapshot => {
-    if (snapshot.exists()) { 
-        currentTheme = snapshot.val() 
-        document.documentElement.className = currentTheme
-    }
-})
 
 // ---------------------—---------------- //
 // --- SETTERS FOR EXPORTED VARIABLES --- //
@@ -205,5 +191,33 @@ const resetLocalTasks = () => {
     invoiceTotal = 0
 }
 
-// Showtime
-initTheme()
+const setHeight = (el, height) => {
+    console.log(el)
+    
+    el.style = `height: ${height}px !important;`
+}
+
+// -------------------------- //
+// --- FIREBASE LISTENERS --- //
+// --------------------—----- //
+
+// App is mostly driven by the following listeners
+
+onValue(tasks, snapshot => {
+    snapshot.exists() ? renderTasks(snapshot.val()) : noTasksYet()
+})
+
+// Toggle dark mode when themePref value changes
+onValue(themePrefs, snapshot => {
+    if (snapshot.exists()) { 
+        currentTheme = snapshot.val() 
+        document.documentElement.className = currentTheme
+    }
+})
+
+// Load the theme when the app starts
+onValue(themePrefs, snapshot => {
+    if (snapshot.exists()) initTheme()
+}, {
+    onlyOnce: true
+})

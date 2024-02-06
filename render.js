@@ -7,6 +7,7 @@ import {
     btnReset, 
     resetLocalTasks, 
     incrementTotal,
+    setHeight,
     modalHistory,
     modalSingleInvoiceView,
     db,
@@ -146,10 +147,12 @@ const showModal = (modal, doShow, key) => {
         'modal-invoice-history': () => {
             renderInvoiceHistory()
             // Adjust height of modal to keep things neat ^_^
-            modalHistory.style.height = document.getElementById('div-container').offsetHeight - 40
+            const h = document.getElementById('div-container').offsetHeight - 40
+            setHeight(modalHistory, h)
         },
         'modal-single-invoice-view': () => {
-            modalSingleInvoiceView.style.height = document.getElementById('div-container').offsetHeight - 40
+            const h = document.getElementById('div-container').offsetHeight - 40
+            setHeight(modalSingleInvoiceView, h)
             renderSingleInvoice(key)
         },
         'modal-confirm': () => {

@@ -1,6 +1,6 @@
 # Module 5 — Solo Project — Invoice Creator
 
-## A simple invoice creator buitl with HTML, CSS, JavaScrript, Firebase Realtime DB
+## A simple invoice creator built with HTML, CSS, JavaScrript, Firebase Realtime DB
 
 Features include the following...
 
@@ -8,7 +8,7 @@ Features include the following...
 - Invoice history stored in database
 - Abilty to retrieve/view a single invoice previously saved in the database
 - Light / dark mode implemented, preferences saved in database
-- Fully modularised, with code organised according to functional groups
+- Fully modularised (it's a word?), with code organised according to functional groups
 
 ## What did I learn
 My mains takeaways from this project were 
