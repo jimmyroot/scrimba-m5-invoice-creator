@@ -4,21 +4,8 @@
 
 import { get, ref } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js'
 
-import { 
-    appState, 
-    db, 
-    invoices, 
-    ulTasks, 
-    btnSendInvoice, 
-    btnReset, 
-    modalHistory, 
-    modalSingleInvoiceView } from './index.js'
-    
-import { 
-    showSpinner, 
-    resetInvoice, 
-    setModalHeight,
-    enableButtons } from './helpers.js'
+import * as app from './index.js'
+import * as helpers from './helpers.js'
 
 export { 
     renderTasks, 
@@ -29,13 +16,13 @@ export {
 
 // Render the live tasks list on the main app page
 const renderTasks = tasks => {
-    appState.liveTasks = []
-    appState.invoiceTotal = 0
+    app.appState.liveTasks = []
+    app.appState.invoiceTotal = 0
     
     const html = Object.keys(tasks).map(key => {
         const { name, price } = tasks[key]
-        appState.liveTasks.push([name, price]) // Keep local tasklist in sync with DB
-        appState.invoiceTotal += price
+        app.appState.liveTasks.push([name, price]) // Keep local tasklist in sync with DB
+        app.appState.invoiceTotal += price
         return `
             <li class="li-invoice-task">
                 <p>${name}</p>
@@ -48,14 +35,14 @@ const renderTasks = tasks => {
         `
     }).join('')
 
-    ulTasks.innerHTML = html
+    app.ulTasks.innerHTML = html
    
-    enableButtons([btnSendInvoice, btnReset], true)
+    helpers.enableButtons([app.btnSendInvoice, app.btnReset], true)
     renderInvoiceTotal()
 }
 
 const renderInvoiceTotal = () => {
-    document.getElementById('p-invoice-footer-total').innerHTML = `<span class="spn-primary">£</span> ${appState.invoiceTotal}`
+    document.getElementById('p-invoice-footer-total').innerHTML = `<span class="spn-primary">£</span> ${app.appState.invoiceTotal}`
 }
 
 // Using 'get' to perform a single read of the invoices data, 
@@ -64,10 +51,10 @@ const renderInvoiceTotal = () => {
 // when an invoices is removed from the db
 const renderInvoiceHistory = () => {
     const ulInvoiceHistory = document.getElementById('ul-invoice-history')
-    showSpinner(modalHistory, true)
-    get(invoices).then(snapshot => {
+    helpers.showSpinner(app.modalHistory, true)
+    get(app.invoices).then(snapshot => {
         if (snapshot.exists()) {
-            showSpinner(modalHistory, false)
+            helpers.showSpinner(app.modalHistory, false)
             const invoiceHistory = snapshot.val()
             ulInvoiceHistory.innerHTML = Object.keys(invoiceHistory).map((key, index, arr) => {
                 const { date, tasks, total } = invoiceHistory[key]
@@ -88,7 +75,7 @@ const renderInvoiceHistory = () => {
                 `
             }).join('')
         } else {
-            showSpinner(modalHistory, false)
+            helpers.showSpinner(app.modalHistory, false)
             ulInvoiceHistory.innerHTML = `
                 <li>
                     <p class="p-no-history">No history...time to do some work 😅 !</p>
@@ -103,10 +90,10 @@ const renderInvoiceHistory = () => {
 // Render one invoice into the Single Invoice View modal 
 const renderSingleInvoice = invoiceId => {
     if (invoiceId) {
-        showSpinner(modalSingleInvoiceView, true)
+        helpers.showSpinner(app.modalSingleInvoiceView, true)
 
-        get(ref(db, `invoices/${invoiceId}/`)).then(snapshot => {
-            showSpinner(modalSingleInvoiceView, false)
+        get(ref(app.db, `invoices/${invoiceId}/`)).then(snapshot => {
+            helpers.showSpinner(app.modalSingleInvoiceView, false)
             const { date, tasks, total } = snapshot.val()
             document.getElementById('sec-modal-invoice').innerHTML = `
             
@@ -155,22 +142,22 @@ const showModal = (modal, doShow, key) => {
     const getReadyToShow = {
         'modal-invoice-history': () => {
             renderInvoiceHistory()
-            setModalHeight(modal)
+            helpers.setModalHeight(modal)
         },
         'modal-single-invoice-view': () => {
             renderSingleInvoice(key)
-            setModalHeight(modal)
+            helpers.setModalHeight(modal)
         },
         'modal-confirm': () => {
             const h = document.getElementById('hdr-modal-confirm')
             const btn = document.getElementById('btn-modal-confirm-close')
             h.textContent = ''
-            enableButtons([btn], false)
-            showSpinner(h, true)
+            helpers.enableButtons([btn], false)
+            helpers.showSpinner(h, true)
             setTimeout(() => {
-                showSpinner(h, false)
+                helpers.showSpinner(h, false)
                 h.textContent = 'Invoice sent 💸'
-                enableButtons([btn], true)
+                helpers.enableButtons([btn], true)
             }, 2000)
         }
 
@@ -179,7 +166,7 @@ const showModal = (modal, doShow, key) => {
     // These functions can be called when a modal is closed
     const cleanUp = {
         'modal-confirm': () => {
-            resetInvoice()
+            helpers.resetInvoice()
         }
     }
     

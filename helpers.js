@@ -7,17 +7,8 @@ import {
     set, 
     get } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js'
 
-import { 
-    appState,  
-    tasks, 
-    themePrefs, 
-    ulTasks, 
-    btnSendInvoice, 
-    btnReset, 
-    formTaskInput, 
-    toggleDarkMode } from './index.js'
-    
-import { renderInvoiceTotal } from './render.js'
+import * as app from './index.js'
+import * as render from './render.js'
 
 export { 
     noTasksYet, 
@@ -32,32 +23,32 @@ export {
 
 const noTasksYet = () => {
     // Make sure everything is empty
-    appState.liveTasks = []
-    appState.invoiceTotal = 0
+    app.appState.liveTasks = []
+    app.appState.invoiceTotal = 0
     // Render stuff
-    ulTasks.innerHTML = `
+    app.ulTasks.innerHTML = `
         <li class="li-invoice-task li-empty">
             <p class="p-empty">No tasks yet</p>
             <p class="p-empty">£ 0</p>
         </li>
     `
-    enableButtons([btnSendInvoice, btnReset], false)
-    renderInvoiceTotal()
+    enableButtons([app.btnSendInvoice, app.btnReset], false)
+    render.renderInvoiceTotal()
 }
 
 const resetInvoice = () => {
     // Reset all the stuff
-    appState.liveTasks = []
-    appState.invoiceTotal = []
+    app.appState.liveTasks = []
+    app.appState.invoiceTotal = []
     // Remove current tasks from firebase, will trigger re-render
     remove(tasks)
     // Reset form and remove warning class if present
-    formTaskInput.reset()
-    const formEls = [...formTaskInput.elements]
+    app.formTaskInput.reset()
+    const formEls = [...app.formTaskInput.elements]
     formEls.forEach(el => {
         if (el.classList.contains('warning')) el.classList.remove('warning')
     })
-    enableButtons([btnReset], false)
+    enableButtons([app.btnReset], false)
 }
 
 const showSpinner = (el, doShow) => {
@@ -65,7 +56,7 @@ const showSpinner = (el, doShow) => {
 }
 
 const taskExists = task => {
-    return appState.liveTasks.map(task => task[0]).includes(task.name)
+    return app.appState.liveTasks.map(task => task[0]).includes(task.name)
 }
 
 const isFormComplete = form => {
@@ -85,19 +76,19 @@ const enableButtons = (buttons, doEnable) => {
 }
 
 const setTheme = theme => {
-    // const themePrefs = ref(db, '/themePrefs/theme')
-    set(themePrefs, theme)
+    // const app.themePrefs = ref(db, '/app.themePrefs/theme')
+    set(app.themePrefs, theme)
 }
 
 // This only gets called once when the app loads, checks for existing theme preference
 // in firebase, loads it if present, else creates it on first run
 const initTheme = () => {
-    get(themePrefs).then(snapshot => {
+    get(app.themePrefs).then(snapshot => {
         if (snapshot.exists()) {
             const theme = snapshot.val()
-            appState.currentTheme = theme
+            app.appState.currentTheme = theme
             // Make sure the toggle switch has the correct orientation when app loads
-            theme === 'light' ? toggleDarkMode.checked = false : toggleDarkMode.checked = true
+            theme === 'light' ? app.toggleDarkMode.checked = false : app.toggleDarkMode.checked = true
         } else {
             setTheme('light')
             initTheme()

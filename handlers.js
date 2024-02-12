@@ -4,18 +4,9 @@
 
 import { push } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js'
 
-import { 
-    appState, 
-    tasks, 
-    invoices, 
-    formTaskInput,  
-    modalConfirm } from './index.js'
-         
-import { showModal } from './render.js'
-         
-import { 
-    taskExists,
-    enableButtons } from './helpers.js'
+import * as app from './index.js'
+import * as render from './render.js'
+import * as helpers from './helpers.js'
 
 export { 
     handleFormSubmit, 
@@ -29,20 +20,20 @@ const handleFormSubmit = form => {
         price: +(data.get('price'))
     }
     // Make sure there's no duplicate then push
-    if (!taskExists(task)) {
-        push(tasks, task)
-        formTaskInput.reset()
+    if (!helpers.taskExists(task)) {
+        push(app.tasks, task)
+        app.formTaskInput.reset()
     } else {
         // Show warning if duplicate task
         const ipt = document.getElementById('ipt-task-name')
         const btn = document.getElementById('btn-add-task')
         ipt.value = "Duplicate task!"
         ipt.classList.add('warning')
-        enableButtons([btn], false)
+        helpers.enableButtons([btn], false)
         setTimeout(() => {
             ipt.value = ''
             ipt.classList.remove('warning')
-            enableButtons([btn], true)
+            helpers.enableButtons([btn], true)
         }, 1500)
     }
 }
@@ -51,8 +42,8 @@ const handleFormSubmit = form => {
 const handleSendInvoice = () => {
 
     // I guess we could do some checking here to prevent submission of duplicate invoices, but leaving that alone for now :-)
-    const newInvoiceTasks = appState.liveTasks.map(task => task)
-    const newInvoiceTotal = appState.invoiceTotal
+    const newInvoiceTasks = app.appState.liveTasks.map(task => task)
+    const newInvoiceTotal = app.appState.invoiceTotal
     const newInvoiceDate = new Date().toLocaleDateString('en-GB', { month: 'short', day: 'numeric' })
 
     const newInvoice = {
@@ -61,7 +52,7 @@ const handleSendInvoice = () => {
         date: newInvoiceDate
     }
     
-    push(invoices, newInvoice)
-    showModal(modalConfirm, true)
+    push(app.invoices, newInvoice)
+    render.showModal(app.modalConfirm, true)
     // Show a modal
 }

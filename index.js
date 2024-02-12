@@ -10,26 +10,10 @@ import {
     ref, 
     onValue } from 'https://www.gstatic.com/firebasejs/10.7.2/firebase-database.js'
 
-import { 
-    handleFormSubmit, 
-    handleSendInvoice } from './handlers.js'
-    
-import { 
-    renderTasks, 
-    renderInvoiceHistory, 
-    showModal } from './render.js'
-    
-import { 
-    removeTaskFromDB, 
-    removeInvoiceFromDB } from './firebase.js'
-    
-import { 
-    noTasksYet, 
-    resetInvoice,
-    isFormComplete, 
-    enableButtons, 
-    setTheme, 
-    initTheme } from './helpers.js'
+import * as handlers from './handlers.js'
+import * as render from './render.js'
+import * as fb from './firebase.js'
+import * as helpers from './helpers.js'
 
 export { 
     appState, 
@@ -71,8 +55,6 @@ const toggleDarkMode = document.getElementById('toggle-dark-mode')
 // attributes without separate getter functions. This object contains a local liveTasks array 
 // (so we don't have to read from the db each time to check for duplicates),
 // the running total of the live invoice and the current theme preference
-
-
 let appState = {
     liveTasks: [],
     invoiceTotal: 0,
@@ -88,20 +70,20 @@ formTaskInput.addEventListener('submit', e => {
     e.preventDefault()
     const form = e.target
     // Check if task input field contains something, then submit the form
-    if (isFormComplete(form)) handleFormSubmit(form)
+    if (helpers.isFormComplete(form)) handlers.handleFormSubmit(form)
 })
 
 // Listen for changes to inputs to remove validation/warning class
 formTaskInput.addEventListener('input', e => {        
     const input = e.target
     if (input.classList.contains('warning')) input.classList.remove('warning')
-    if (input.value) enableButtons([btnReset], true)
+    if (input.value) helpers.enableButtons([btnReset], true)
 })
 
 ulTasks.addEventListener('click', e => {
     const handleClick = {
         taskDelete: () => {
-            removeTaskFromDB(e.target.dataset.key)
+            fb.removeTaskFromDB(e.target.dataset.key)
         }
     }
 
@@ -110,17 +92,17 @@ ulTasks.addEventListener('click', e => {
 })
 
 btnSendInvoice.addEventListener('click', () => {
-    handleSendInvoice()
+    handlers.handleSendInvoice()
 })
 
 // For the buttons on the main app, at the bottom
 document.getElementById('div-ctl-panel').addEventListener('click', e => {
     const handleClick = {
         history: () => {
-            showModal(modalHistory, true)
+            render.showModal(modalHistory, true)
         },
         reset: () => {
-            resetInvoice()
+            helpers.resetInvoice()
         }
     }
 
@@ -131,13 +113,13 @@ document.getElementById('div-ctl-panel').addEventListener('click', e => {
 modalHistory.addEventListener('click', e => {
     const handleClick = {
         close: () => {
-            showModal(modalHistory, false)
+            render.showModal(modalHistory, false)
         },
         invoiceDelete: () => {
-            removeInvoiceFromDB(e.target.dataset.key)
+            fb.removeInvoiceFromDB(e.target.dataset.key)
         },
         invoiceView: () => {
-            showModal(modalSingleInvoiceView, true, e.target.dataset.key)
+            render.showModal(modalSingleInvoiceView, true, e.target.dataset.key)
         }
 
     }
@@ -148,10 +130,10 @@ modalHistory.addEventListener('click', e => {
 modalSingleInvoiceView.addEventListener('click', e => {
     const handleClick = {
         close: () => {
-            showModal(modalSingleInvoiceView, false)
+            render.showModal(modalSingleInvoiceView, false)
         },
         back: () => {
-            showModal(modalHistory, true)
+            render.showModal(modalHistory, true)
         }
     }
     const type = e.target.dataset.type
@@ -161,7 +143,7 @@ modalSingleInvoiceView.addEventListener('click', e => {
 modalConfirm.addEventListener('click', e => {
     const handleClick = {
         close: () => {
-            showModal(modalConfirm, false)
+            render.showModal(modalConfirm, false)
         }
     }
     const type = e.target.dataset.type
@@ -180,7 +162,7 @@ modalConfirm.addEventListener('cancel', e => {
 // animation
 toggleDarkMode.addEventListener('change', () => {
     setTimeout( () => {
-        appState.currentTheme === 'light' ? setTheme('dark') : setTheme('light')
+        appState.currentTheme === 'light' ? helpers.setTheme('dark') : helpers.setTheme('light')
     }, 200)
     
 })
@@ -191,7 +173,7 @@ toggleDarkMode.addEventListener('change', () => {
 
 // Render the task list 
 onValue(tasks, snapshot => {
-    snapshot.exists() ? renderTasks(snapshot.val()) : noTasksYet()
+    snapshot.exists() ? render.renderTasks(snapshot.val()) : helpers.noTasksYet()
 })
 
 // Toggle dark mode when darkmode value changed
@@ -204,7 +186,7 @@ onValue(themePrefs, snapshot => {
 
 // Only run this once, when the app first loads
 onValue(themePrefs, snapshot => {
-    if (snapshot.exists()) initTheme()
+    if (snapshot.exists()) helpers.initTheme()
 }, {
     onlyOnce: true
 })
